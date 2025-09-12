@@ -189,7 +189,7 @@ st.markdown("""
         }
     </style>
 
-    <h1 class="title-text">⭐ Welcome toComfort Physiotherapy Centre Bhopal Review Page</h1>
+    <h1 class="title-text">⭐ Welcome to Comfort Physiotherapy Centre Bhopal Review Page</h1>
 """, unsafe_allow_html=True)
 
 # ===== Google Review URL =====
@@ -238,6 +238,7 @@ if st.session_state.selected_review:
     """, height=100)
 else:
     st.info("👆 First generate a review to continue.")
+
 
 
 
