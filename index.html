@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Confort physiotherapy center Bhopal</title>
+<style>
+body {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background: url('background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
+  padding: 40px 20px;
+}
+.header { text-align: center; margin-bottom: 20px; }
+.header img { width: 80px; display: block; margin: 0 auto 10px; }
+.header h1 { font-size: 26px; margin: 0; }
+.overlay {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+h2 { font-size: 22px; margin-bottom: 15px; }
+p { font-size: 18px; line-height: 1.5; }
+button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #0b5fff;
+  color: white;
+  transition: background-color 0.2s;
+}
+button:hover { background-color: #0846b7; }
+.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="logo.png" alt="confort Logo">
+  <h1>⭐ Confort physiotherapy centre Bhopal ⭐ </h1>
+</div>
+
+<div id="page1" class="overlay">
+  <h2>About Our Company</h2>
+  <p>
+    At <strong> Confort physiotherapy centre Bhopal </strong>,Comfort Physiotherapy Centre, Bhopal is a trusted name in advanced physiotherapy and rehabilitation care. With a strong commitment to patient recovery, we specialize in treating a wide range of conditions — including arthritis, back and neck pain, sports injuries, post-surgery rehabilitation, joint pain, muscle strains, and mobility issues.
+
+Our centre is equipped with modern physiotherapy equipment and operated by a team of highly skilled and compassionate physiotherapists. We believe in personalized care plans, hands-on techniques, and evidence-based treatments that deliver lasting results.
+
+At Comfort Physiotherapy, we aim not just to relieve pain, but to restore confidence, independence, and quality of life. Our clean, friendly, and supportive environment ensures that every patient feels comfortable, heard, and cared for throughout their recovery journey.
+  </p>
+</div>
+<button id="nextBtn1">➡️ Next</button>
+
+<div id="page2" class="overlay hidden">
+  <h2>Customer Review</h2>
+  <p id="reviewText">Loading review...</p>
+</div>
+<button id="nextBtn2" class="hidden">➡️ Next</button>
+
+<script>
+const page1 = document.getElementById('page1');
+const page2 = document.getElementById('page2');
+const reviewText = document.getElementById('reviewText');
+const nextBtn1 = document.getElementById('nextBtn1');
+const nextBtn2 = document.getElementById('nextBtn2');
+let review = "";
+
+// --- Define reviews directly in JS ---
+const reviews = [
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी shoulder stiffness अब लगभग ठीक है। Truly grateful!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे arthritis pain में noticeable फर्क पड़ा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे neck pain में noticeable फर्क पड़ा।",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी knee pain में relief मिला और confidence भी लौटा।",
+  "स्टाफ बहुत supportive है। मेरी shoulder stiffness जल्दी recover हो गई thanks to their dedication।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी mobility issue में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे post-surgery recovery में noticeable फर्क पड़ा।",
+  "स्टाफ बहुत supportive है। मेरी arthritis pain जल्दी recover हो गई thanks to their dedication।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे shoulder stiffness में noticeable फर्क पड़ा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे back pain में noticeable फर्क पड़ा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे post-surgery recovery में noticeable फर्क पड़ा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी back pain में काफी सुधार हुआ।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी knee pain अब लगभग ठीक है। Truly grateful!",
+  "स्टाफ बहुत supportive है। मेरी mobility issue जल्दी recover हो गई thanks to their dedication।",
+  "Clean clinic, caring staff, and effective therapy—मेरी knee pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी post-surgery recovery अब लगभग ठीक है। Truly grateful!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे joint pain में noticeable फर्क पड़ा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी muscle strain में काफी सुधार हुआ।",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी back pain में relief मिला और confidence भी लौटा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे back pain में noticeable फर्क पड़ा।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी post-surgery recovery अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी mobility issue में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे arthritis pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी knee pain अब past की बात है। Highly recommend!",
+  "स्टाफ बहुत supportive है। मेरी joint pain जल्दी recover हो गई thanks to their dedication।",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी neck pain में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी mobility issue में काफी सुधार हुआ।",
+  "स्टाफ बहुत supportive है। मेरी sports injury जल्दी recover हो गई thanks to their dedication।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी shoulder stiffness में काफी सुधार हुआ।",
+  "स्टाफ बहुत supportive है। मेरी knee pain जल्दी recover हो गई thanks to their dedication।",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी neck pain में relief मिला और confidence भी लौटा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी joint pain अब past की बात है। Highly recommend!",
+  "Clean clinic, caring staff, and effective therapy—मेरी muscle strain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी joint pain अब लगभग ठीक है। Truly grateful!",
+  "स्टाफ बहुत supportive है। मेरी muscle strain जल्दी recover हो गई thanks to their dedication।",
+  "Clean clinic, caring staff, and effective therapy—मेरी arthritis pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी sports injury अब लगभग ठीक है। Truly grateful!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी arthritis pain अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी shoulder stiffness में काफी सुधार हुआ।",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी muscle strain में relief मिला और confidence भी लौटा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे back pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी back pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी arthritis pain अब लगभग ठीक है। Truly grateful!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी joint pain अब लगभग ठीक है। Truly grateful!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे neck pain में noticeable फर्क पड़ा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी post-surgery recovery में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे muscle strain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी muscle strain अब past की बात है। Highly recommend!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी post-surgery recovery में काफी सुधार हुआ।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी back pain अब लगभग ठीक है। Truly grateful!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे knee pain में noticeable फर्क पड़ा।",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी post-surgery recovery में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी shoulder stiffness में काफी सुधार हुआ।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी knee pain अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी joint pain में काफी सुधार हुआ।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी sports injury अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी back pain में काफी सुधार हुआ।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी arthritis pain में काफी सुधार हुआ।",
+  "Clean clinic, caring staff, and effective therapy—मेरी post-surgery recovery अब past की बात है। Highly recommend!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे shoulder stiffness में noticeable फर्क पड़ा।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी arthritis pain अब लगभग ठीक है। Truly grateful!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी back pain में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी sports injury में काफी सुधार हुआ।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी joint pain में काफी सुधार हुआ।",
+  "स्टाफ बहुत supportive है। मेरी shoulder stiffness जल्दी recover हो गई thanks to their dedication।",
+  "स्टाफ बहुत supportive है। मेरी muscle strain जल्दी recover हो गई thanks to their dedication।",
+  "Clean clinic, caring staff, and effective therapy—मेरी arthritis pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी joint pain में relief मिला और confidence भी लौटा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे arthritis pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी arthritis pain अब past की बात है। Highly recommend!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे post-surgery recovery में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी post-surgery recovery अब past की बात है। Highly recommend!",
+  "स्टाफ बहुत supportive है। मेरी post-surgery recovery जल्दी recover हो गई thanks to their dedication।",
+  "स्टाफ बहुत supportive है। मेरी post-surgery recovery जल्दी recover हो गई thanks to their dedication।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे arthritis pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी shoulder stiffness अब past की बात है। Highly recommend!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे mobility issue में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी shoulder stiffness अब past की बात है। Highly recommend!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी back pain में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे neck pain में noticeable फर्क पड़ा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे knee pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी shoulder stiffness अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी knee pain अब लगभग ठीक है। Truly grateful!",
+  "Clean clinic, caring staff, and effective therapy—मेरी back pain अब past की बात है। Highly recommend!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे muscle strain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी knee pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी joint pain में relief मिला और confidence भी लौटा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी back pain अब past की बात है। Highly recommend!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी knee pain में काफी सुधार हुआ।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी sports injury अब लगभग ठीक है। Truly grateful!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे post-surgery recovery में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी joint pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी muscle strain अब लगभग ठीक है। Truly grateful!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे muscle strain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी sports injury अब past की बात है। Highly recommend!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी arthritis pain में काफी सुधार हुआ।",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी post-surgery recovery में relief मिला और confidence भी लौटा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे neck pain में noticeable फर्क पड़ा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी muscle strain में काफी सुधार हुआ।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी shoulder stiffness अब लगभग ठीक है। Truly grateful!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे joint pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी sports injury अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी mobility issue में relief मिला और confidence भी लौटा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी post-surgery recovery अब past की बात है। Highly recommend!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे shoulder stiffness में noticeable फर्क पड़ा।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी knee pain अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी back pain में काफी सुधार हुआ।",
+  "Clean clinic, caring staff, and effective therapy—मेरी joint pain अब past की बात है। Highly recommend!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे back pain में noticeable फर्क पड़ा।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी arthritis pain अब लगभग ठीक है। Truly grateful!",
+  "Clean clinic, caring staff, and effective therapy—मेरी arthritis pain अब past की बात है। Highly recommend!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे post-surgery recovery में noticeable फर्क पड़ा।",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी shoulder stiffness में relief मिला और confidence भी लौटा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी knee pain अब past की बात है। Highly recommend!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे neck pain में noticeable फर्क पड़ा।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी mobility issue अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी shoulder stiffness में काफी सुधार हुआ।",
+  "स्टाफ बहुत supportive है। मेरी muscle strain जल्दी recover हो गई thanks to their dedication।",
+  "Clean clinic, caring staff, and effective therapy—मेरी mobility issue अब past की बात है। Highly recommend!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे back pain में noticeable फर्क पड़ा।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी sports injury अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी post-surgery recovery में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे shoulder stiffness में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी post-surgery recovery अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी muscle strain में relief मिला और confidence भी लौटा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे joint pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी sports injury अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी arthritis pain अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी knee pain में काफी सुधार हुआ।",
+  "स्टाफ बहुत supportive है। मेरी shoulder stiffness जल्दी recover हो गई thanks to their dedication।",
+  "Clean clinic, caring staff, and effective therapy—मेरी arthritis pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी back pain में relief मिला और confidence भी लौटा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे mobility issue में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी mobility issue अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी muscle strain अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी post-surgery recovery में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे joint pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी joint pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी shoulder stiffness में relief मिला और confidence भी लौटा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे arthritis pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी knee pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी mobility issue अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी muscle strain में काफी सुधार हुआ।",
+  "स्टाफ बहुत supportive है। मेरी knee pain जल्दी recover हो गई thanks to their dedication।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे sports injury में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी back pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी post-surgery recovery में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी shoulder stiffness में काफी सुधार हुआ।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी sports injury अब लगभग ठीक है। Truly grateful!",
+  "Clean clinic, caring staff, and effective therapy—मेरी arthritis pain अब past की बात है। Highly recommend!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे joint pain में noticeable फर्क पड़ा।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी post-surgery recovery अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी muscle strain में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे mobility issue में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी muscle strain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी arthritis pain में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी back pain में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे sports injury में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी back pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी mobility issue अब लगभग ठीक है। Truly grateful!",
+  "स्टाफ बहुत supportive है। मेरी post-surgery recovery जल्दी recover हो गई thanks to their dedication।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे shoulder stiffness में noticeable फर्क पड़ा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी sports injury में काफी सुधार हुआ।",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी joint pain में relief मिला और confidence भी लौटा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी joint pain अब past की बात है। Highly recommend!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे knee pain में noticeable फर्क पड़ा।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी arthritis pain अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी shoulder stiffness में काफी सुधार हुआ।",
+  "Clean clinic, caring staff, and effective therapy—मेरी arthritis pain अब past की बात है। Highly recommend!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे muscle strain में noticeable फर्क पड़ा।",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी back pain में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी mobility issue में काफी सुधार हुआ।",
+  "Clean clinic, caring staff, and effective therapy—मेरी mobility issue अब past की बात है। Highly recommend!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे post-surgery recovery में noticeable फर्क पड़ा।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी joint pain अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी muscle strain में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे arthritis pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी post-surgery recovery अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी neck pain में relief मिला और confidence भी लौटा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे mobility issue में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी knee pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी shoulder stiffness अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी joint pain में काफी सुधार हुआ।",
+  "स्टाफ बहुत supportive है। मेरी post-surgery recovery जल्दी recover हो गई thanks to their dedication।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे muscle strain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी shoulder stiffness अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी sports injury में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी post-surgery recovery में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे back pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी back pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी sports injury अब लगभग ठीक है। Truly grateful!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे arthritis pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी arthritis pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी muscle strain अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी mobility issue में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे joint pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी joint pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी back pain में relief मिला और confidence भी लौटा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे neck pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी post-surgery recovery अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी arthritis pain अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी shoulder stiffness में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे muscle strain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी sports injury अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी mobility issue में relief मिला और confidence भी लौटा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे back pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी back pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी post-surgery recovery अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी knee pain में काफी सुधार हुआ।",
+  "स्टाफ बहुत supportive है। मेरी joint pain जल्दी recover हो गई thanks to their dedication।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे post-surgery recovery में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी knee pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी shoulder stiffness में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी sports injury में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे joint pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी joint pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी mobility issue अब लगभग ठीक है। Truly grateful!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे muscle strain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी muscle strain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी knee pain में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी back pain में काफी सुधार हुआ।",
+  "स्टाफ बहुत supportive है। मेरी arthritis pain जल्दी recover हो गई thanks to their dedication।",
+  "Clean clinic, caring staff, and effective therapy—मेरी arthritis pain अब past की बात है। Highly recommend!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे sports injury में noticeable फर्क पड़ा।",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी post-surgery recovery अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी post-surgery recovery में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे joint pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी joint pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी shoulder stiffness में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी muscle strain में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे back pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी back pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी knee pain अब लगभग ठीक है। Truly grateful!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे neck pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी neck pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी mobility issue में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी post-surgery recovery में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे sports injury में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी sports injury अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी arthritis pain अब लगभग ठीक है। Truly grateful!",
+  "स्टाफ बहुत supportive है। मेरी muscle strain जल्दी recover हो गई thanks to their dedication।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी arthritis pain में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे knee pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी knee pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी back pain में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी muscle strain में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे post-surgery recovery में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी post-surgery recovery अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी joint pain अब लगभग ठीक है। Truly grateful!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे shoulder stiffness में noticeable फर्क पड़ा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी mobility issue में काफी सुधार हुआ।",
+  "Clean clinic, caring staff, and effective therapy—मेरी mobility issue अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी muscle strain में relief मिला और confidence भी लौटा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे joint pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी joint pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी back pain अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी arthritis pain में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे muscle strain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी muscle strain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी sports injury में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी post-surgery recovery में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे back pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी back pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी knee pain अब लगभग ठीक है। Truly grateful!",
+  "स्टाफ बहुत supportive है। मेरी post-surgery recovery जल्दी recover हो गई thanks to their dedication।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे shoulder stiffness में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी shoulder stiffness अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी joint pain में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी muscle strain में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे neck pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी neck pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी mobility issue अब लगभग ठीक है। Truly grateful!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे sports injury में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी sports injury अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी arthritis pain में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी post-surgery recovery में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे joint pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी joint pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी back pain अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी muscle strain में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे mobility issue में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी mobility issue अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी post-surgery recovery में relief मिला और confidence भी लौटा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे knee pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी knee pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी shoulder stiffness अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी joint pain में काफी सुधार हुआ।",
+  "स्टाफ बहुत supportive है। मेरी sports injury जल्दी recover हो गई thanks to their dedication।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे post-surgery recovery में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी post-surgery recovery अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी muscle strain में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी arthritis pain में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे back pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी back pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी joint pain अब लगभग ठीक है। Truly grateful!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे neck pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी neck pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी post-surgery recovery में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी sports injury में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे muscle strain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी muscle strain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी mobility issue अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी post-surgery recovery में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे joint pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी joint pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी back pain में relief मिला और confidence भी लौटा।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे shoulder stiffness में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी shoulder stiffness अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी knee pain अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी muscle strain में काफी सुधार हुआ।",
+  "स्टाफ बहुत supportive है। मेरी mobility issue जल्दी recover हो गई thanks to their dedication।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे post-surgery recovery में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी post-surgery recovery अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी sports injury में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी arthritis pain में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे back pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी back pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी joint pain अब लगभग ठीक है। Truly grateful!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे knee pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी knee pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी shoulder stiffness में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी post-surgery recovery में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे muscle strain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी muscle strain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी mobility issue अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी arthritis pain में काफी सुधार हुआ।",
+  "स्टाफ बहुत supportive है। मेरी sports injury जल्दी recover हो गई thanks to their dedication।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे joint pain में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी joint pain अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी back pain में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी neck pain में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे post-surgery recovery में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी post-surgery recovery अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी muscle strain अब लगभग ठीक है। Truly grateful!",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे mobility issue में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी mobility issue अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre ने मेरी expectations exceed कर दीं। मेरी knee pain में relief मिला और confidence भी लौटा।",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी back pain में काफी सुधार हुआ।",
+  "Best physiotherapy in Bhopal! उनके modern equipment और care से मेरे sports injury में noticeable फर्क पड़ा।",
+  "Clean clinic, caring staff, and effective therapy—मेरी sports injury अब past की बात है। Highly recommend!",
+  "Comfort Physiotherapy Centre Bhopal में मिला treatment बेहतरीन था। मेरी post-surgery recovery अब लगभग ठीक है। Truly grateful!",
+  "यहां का environment बहुत friendly है और physiotherapists बहुत skilled हैं। मेरी shoulder stiffness में काफी सुधार हुआ।"
+];
+
+
+nextBtn1.addEventListener('click', () => {
+  nextBtn1.style.display = "none";
+  page1.classList.add('hidden');
+  page2.classList.remove('hidden');
+  nextBtn2.classList.remove('hidden');
+  loadReview();
+});
+
+nextBtn2.addEventListener('click', copyAndRedirect);
+
+function loadReview() {
+  if(reviews.length === 0){
+    reviewText.textContent = "No reviews available!";
+    return;
+  }
+  const randomIndex = Math.floor(Math.random() * reviews.length);
+  review = reviews[randomIndex];
+  reviewText.textContent = review;
+}
+
+function copyAndRedirect() {
+  if(!review){
+    alert("Review not loaded yet!");
+    return;
+  }
+  navigator.clipboard.writeText(review).then(() => {
+    window.open("https://g.page/r/Cfzx7F2pZnKEEAE/review", "_blank");
+  }).catch(err => {
+    alert("Copy failed. Redirecting anyway...");
+    window.open("https://g.page/r/Cfzx7F2pZnKEEAE/review", "_blank");
+  });
+}
+</script>
+
+</body>
+</html>
